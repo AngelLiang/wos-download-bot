@@ -10,6 +10,7 @@
 // @require      https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
 // @require      https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js
 // @connect      *
+// @license      MIT
 // ==/UserScript==
 
 
