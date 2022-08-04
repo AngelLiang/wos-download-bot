@@ -23,7 +23,7 @@
 
     var uuid = ""
     var wosSid = ""
-    var waitSecond = 60
+    var waitSecond = null
 
     function getTotal() {
         total = $(".brand-blue").text()
@@ -110,13 +110,18 @@
     }
 
     function requestFile(i, number, total, callback) {
-        waitSecond = prompt("请输入下载间隔时间，单位秒", "60");
-        if (waitSecond ==  null) {
-            return
+        if (waitSecond == null) {
+            waitSecond = prompt("请输入下载间隔时间，单位秒", "60");
+            if (waitSecond ==  null) {
+                return
+            }
+            waitSecond = parseInt(waitSecond)
+            if(waitSecond < 20 ) {
+                alert("下载间隔时间不建议小于20s");
+                return
+            }
         }
-        waitSecond = parseInt(waitSecond)
-        if(waitSecond < 20 ) {
-            alert("下载间隔时间不建议小于20s");
+        if (waitSecond == null) {
             return
         }
 
