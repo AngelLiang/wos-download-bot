@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Wos Batch Download Bot
+// @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
 // @version      1.2
 // @description  一键下载wos核心合集的期刊论文数据
