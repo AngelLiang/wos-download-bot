@@ -2,13 +2,14 @@
 // @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
 // @version      1.2.1
-// @description  一键下载wos核心合集的期刊论文数据
+// @description  wos核心论文集下载机器人
 // @author       AngelLiang
 // @match        https://www.webofscience.com/wos/woscc/summary/*/relevance/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=webofscience.com
 // @require      https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
 // @require      https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js
 // @connect      *
+// @license      MIT
 // ==/UserScript==
 
 
