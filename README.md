@@ -1,5 +1,7 @@
 # Wos下载机器人
 
+https://greasyfork.org/zh-CN/scripts/448810-wos-download-bot
+
 ## 使用说明
 
 安装脚本后，进入wos的核心合集检索结果页，即可在右上角看到「一键下载」按钮，点击后按提示输入下载间隔时间，最后等待下载完成即可。
