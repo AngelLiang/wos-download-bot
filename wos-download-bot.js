@@ -21,7 +21,7 @@
 
     var uuid = ""
     var wosSid = ""
-    var waitSecond = 60
+    var waitSecond = null
 
     function getTotal() {
         total = $(".brand-blue").text()
