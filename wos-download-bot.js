@@ -190,9 +190,9 @@
 
     function downloadCallback() {
         console.log("===下载文件===")
-        // wosSid = getSessionID(document)
+        wosSid = getSessionID(document)
         // console.log(wosSid)
-        // uuid = getParentQid()
+        uuid = getParentQid()
         // console.log(uuid)
         let total = getTotal()
         // console.log(total)
