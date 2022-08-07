@@ -101,12 +101,12 @@
     }
 
     function enableDownloadButton(){
-        $("#downloadButton").val('一键下载')
+        $("#downloadButton").html('一键下载')
         $("#downloadButton").attr("disabled", false);
     }
 
     function disableDownloadButton(){
-        $("#downloadButton").val('正在下载...')
+        $("#downloadButton").html('正在下载...')
         $("#downloadButton").attr("disabled", true);
     }
 
