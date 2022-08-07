@@ -148,7 +148,7 @@
             data: requestData,
             success: function(result){
                 //console.log(result);
-                let filename = ""+ nextPageParam[0] + '-' + nextPageParam[1] + '.txt'
+                let filename = "" + start + '-' + stop + '.txt'
                 downloadFile(filename, result)
             },
             error: function(err){
