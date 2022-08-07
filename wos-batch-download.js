@@ -190,12 +190,12 @@
 
     function downloadCallback() {
         console.log("===下载文件===")
-        wosSid = getSessionID(document)
-        console.log(wosSid)
-        uuid = getParentQid()
-        console.log(uuid)
+        // wosSid = getSessionID(document)
+        // console.log(wosSid)
+        // uuid = getParentQid()
+        // console.log(uuid)
         let total = getTotal()
-        console.log(total)
+        // console.log(total)
         let number = genRequestPageNumber(total)
         requestFile(1, number, total, requestFile)
     }
