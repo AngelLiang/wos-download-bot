@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.2.1
 // @description  一键下载wos核心合集的期刊论文数据
 // @author       AngelLiang
 // @match        https://www.webofscience.com/wos/woscc/summary/*/relevance/*
