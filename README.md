@@ -25,7 +25,7 @@ https://greasyfork.org/zh-CN/scripts/448810-wos-download-bot
 
 ![search](images/search.png)
 
-3、在右上角会出现「一键下载」的按钮，点击下载即可自动下载该期刊的所有论文。如果没出现该按钮可以刷新一下当前页面
+3、在右上角会出现「一键下载」的按钮，点击下载即可自动下载该期刊的所有论文。如果没出现该按钮可以刷新一下当前页面。
 
 ![main](images/main.png)
 
