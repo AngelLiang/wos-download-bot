@@ -21,16 +21,18 @@ https://greasyfork.org/zh-CN/scripts/448810-wos-download-bot
 ## 使用步骤
 
 1、登录wos。
+
 2、按下面规则进行检索，进入检索结果页面。注意是核心合集，按出版物标题检索，页面不正确不会显示下面的按钮。
 
-![search](images/search.png)
+![检索页]](images/search.png)
 
 3、在右上角会出现「一键下载」的按钮，点击下载即可自动下载该期刊的所有论文。如果没出现该按钮可以刷新一下当前页面。
 
-![main](images/main.png)
+![一键下载按钮](images/main.png)
 
 4、下载结束后会出现「下载完成」的提示。
 
+![下载完成](images/finish.png)
 
 ## 注意事项
 
