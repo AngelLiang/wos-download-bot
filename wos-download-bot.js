@@ -17,6 +17,8 @@
     'use strict';
 
     const DOWNLOAD_URL = "https://www.webofscience.com/api/wosnx/indic/export/saveToFile";
+    const DEFAULT_WAIT_SECOND = "30"
+
     var total = "";
     var perPage = 500
 
@@ -113,7 +115,7 @@
 
     function requestFile(i, number, total, callback) {
         if (waitSecond == null) {
-            waitSecond = prompt("请输入下载间隔时间（±5s），单位秒", "60");
+            waitSecond = prompt("请输入下载间隔时间（±5s），单位秒", DEFAULT_WAIT_SECOND);
         }
         if (waitSecond ==  null) {
             alert("waitSecond参数不能为空");
