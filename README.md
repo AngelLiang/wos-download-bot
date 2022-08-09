@@ -30,3 +30,7 @@ https://greasyfork.org/zh-CN/scripts/448810-wos-download-bot
 - 因为有环境检测，下载过程中时不时随意移动下鼠标，不要一直保持静止
 - 可能会出现人机认证的要求导致无法下载，这时候需要先手动下载一条数据，进行人机认证后，再进行一键下载
 - 使用谷歌浏览器可能会弹出请求下载多个文件的提示，点击确定即可
+
+## 鸣谢
+
+特别感谢[阳志平老师](https://github.com/ouyangzhiping)以及[开智学堂](https://github.com/OpenMindClub)信分十期
