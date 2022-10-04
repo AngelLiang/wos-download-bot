@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
-// @version      1.2.3
+// @version      1.2.4
 // @description  wos核心论文集下载机器人
 // @author       AngelLiang
 // @match        https://www.webofscience.com/wos/woscc/summary/*/relevance/*
