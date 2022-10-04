@@ -8,6 +8,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=webofscience.com
 // @require      https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
 // @require      https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js
+// @grant        GM_download
 // @connect      *
 // @license      MIT
 // ==/UserScript==
@@ -80,11 +81,17 @@
         return requestData
     }
 
-    function downloadFile(fileName, data){
-        var a = document.createElement("a");
-        a.href = "data:text," + data;   //content
-        a.download = fileName;            //file name
-        a.click();
+    function downloadFile(fileName, content) {
+        let downLink = document.createElement('a')
+        downLink.download = fileName
+        //字符内容转换为blod地址
+        let blob = new Blob([content])
+        downLink.href = URL.createObjectURL(blob)
+        // 链接插入到页面
+        document.body.appendChild(downLink)
+        downLink.click()
+        // 移除下载链接
+        document.body.removeChild(downLink)
     }
 
     function sleep(delay) {
@@ -138,7 +145,45 @@
         var requestData = genRequestData(start, stop)
         console.log("正在下载" + start + "到" + stop + "份数据，总共" + total + "份")
         disableDownloadButton()
+        //console.log(requestData, typeof requestData)
 
+        /*
+        let filename = "" + start + '-' + stop + '.txt'
+        let details = {
+          "url": DOWNLOAD_URL,
+          "method": 'POST',
+          "name": filename,
+          "data": requestData,
+          "headers":{
+              "x-1p-wos-sid": wosSid,
+              "content-type": "application/json, text/plain, * /*",
+              "accept-language": "zh-CN,zh;q=0.9"
+          },
+          "cookie": document.cookie,
+          //"crossDomain": true,
+          "onerror": function(err) {
+              console.log(err);
+              enableDownloadButton()
+              alert('下载出错')
+          },
+          "onload": function() {
+            var nextIndex = i+1
+            if (nextIndex > number) {
+                enableDownloadButton()
+                console.log("===下载完成===");
+                alert('下载完成')
+                return
+            }
+            var sleepNum = randomNum(waitSecond - 5, waitSecond + 5)
+            console.log("等待" + sleepNum + "秒后再下载")
+            sleep(sleepNum*1000)
+            callback(nextIndex, number, total, callback)
+          }
+        }
+        GM_download(details)
+        */
+
+        
         let reqAjax = $.ajax({
             url:DOWNLOAD_URL,
             type: 'POST',
@@ -174,6 +219,7 @@
             sleep(sleepNum*1000)
             callback(nextIndex, number, total, callback)
         })
+        
     }
 
     function getSessionID(doc) {
