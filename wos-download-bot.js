@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
-// @version      1.2.4
+// @version      1.3.0
 // @description  wos核心论文集下载机器人
 // @author       AngelLiang
 // @match        https://www.webofscience.com/wos/woscc/summary/*/relevance/*
@@ -120,70 +120,16 @@
         $("#downloadButton").attr("disabled", true);
     }
 
-    function requestFile(i, number, total, callback) {
-        if (waitSecond == null) {
-            waitSecond = prompt("请输入下载间隔时间（±5s），单位秒", DEFAULT_WAIT_SECOND);
+    function requestFileByIndex(start, stop, total, callback) {
+        start = "" + start;
+        if (parseInt(stop) > total) {
+            stop = total;
         }
-        if (waitSecond ==  null) {
-            alert("waitSecond参数不能为空");
-            return
-        }
-        waitSecond = parseInt(waitSecond)
-        if(waitSecond < 20 ) {
-            alert("下载间隔时间不能小于20s");
-            return
-        }
+        stop = "" + stop;
 
-        var nextPageParam = getNextPage(i - 1)
-        var start = nextPageParam[0]
-        var stop = nextPageParam[1]
-        if (stop > total) {
-            stop = "" + total;
-        }
-        //console.log(nextPageParam)
-
-        var requestData = genRequestData(start, stop)
         console.log("正在下载" + start + "到" + stop + "份数据，总共" + total + "份")
         disableDownloadButton()
-        //console.log(requestData, typeof requestData)
 
-        /*
-        let filename = "" + start + '-' + stop + '.txt'
-        let details = {
-          "url": DOWNLOAD_URL,
-          "method": 'POST',
-          "name": filename,
-          "data": requestData,
-          "headers":{
-              "x-1p-wos-sid": wosSid,
-              "content-type": "application/json, text/plain, * /*",
-              "accept-language": "zh-CN,zh;q=0.9"
-          },
-          "cookie": document.cookie,
-          //"crossDomain": true,
-          "onerror": function(err) {
-              console.log(err);
-              enableDownloadButton()
-              alert('下载出错')
-          },
-          "onload": function() {
-            var nextIndex = i+1
-            if (nextIndex > number) {
-                enableDownloadButton()
-                console.log("===下载完成===");
-                alert('下载完成')
-                return
-            }
-            var sleepNum = randomNum(waitSecond - 5, waitSecond + 5)
-            console.log("等待" + sleepNum + "秒后再下载")
-            sleep(sleepNum*1000)
-            callback(nextIndex, number, total, callback)
-          }
-        }
-        GM_download(details)
-        */
-
-        
         let reqAjax = $.ajax({
             url:DOWNLOAD_URL,
             type: 'POST',
@@ -193,7 +139,7 @@
                 "accept-language": "zh-CN,zh;q=0.9"
             },
             "crossDomain": true,
-            data: requestData,
+            data: genRequestData(start, stop),
             success: function(result){
                 //console.log(result);
                 let filename = "" + start + '-' + stop + '.txt'
@@ -201,14 +147,16 @@
             },
             error: function(err){
                 console.log(err);
+                console.log(err.responseJSON);
                 enableDownloadButton()
-                alert('下载出错')
+                alert('下载出错：'+JSON.stringify(err.responseJSON))
             }
         })
 
         $.when(reqAjax).done(function(){
-            var nextIndex = i+1
-            if (nextIndex > number) {
+            var nextStart = parseInt(start) + 500
+            var nextStop = parseInt(stop) + 500
+            if (nextStart > total) {
                 enableDownloadButton()
                 console.log("===下载完成===");
                 alert('下载完成')
@@ -217,9 +165,43 @@
             var sleepNum = randomNum(waitSecond - 5, waitSecond + 5)
             console.log("等待" + sleepNum + "秒后再下载")
             sleep(sleepNum*1000)
-            callback(nextIndex, number, total, callback)
+            callback(nextStart, nextStop, total, callback)
         })
-        
+    }
+
+    function requestFile(i, number, total, callback) {
+        if (waitSecond == null) {
+            waitSecond = prompt("请输入下载间隔时间（±5s），单位秒", DEFAULT_WAIT_SECOND);
+        }
+        if (waitSecond ==  null) {
+            alert("取消下载");
+            return
+        }
+        waitSecond = parseInt(waitSecond)
+        if(waitSecond < 20 ) {
+            alert("下载间隔时间不能小于20s");
+            return
+        }
+
+        var nextPageParam = getNextPage(i - 1)
+        var start0 = nextPageParam[0]
+        var stop = nextPageParam[1]
+
+        //console.log(nextPageParam)
+        var start = prompt("请输入下载开始份数，默认从1开始", 1);
+        if (start == null) {
+            alert("取消下载");
+            return
+        }
+        else if(start < start0 || start > total ) {
+            alert("超出范围，取消下载");
+            return
+        }
+        stop = parseInt(start) + 500 - 1
+
+        //console.log(start +","+stop)
+
+        requestFileByIndex(start, stop, total, requestFileByIndex)
     }
 
     function getSessionID(doc) {
