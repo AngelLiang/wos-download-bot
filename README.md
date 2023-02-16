@@ -1,6 +1,6 @@
 # Wos下载机器人
 
-基于油猴脚本的wos核心期刊批量下载脚本
+基于油猴脚本的wos核心期刊批量下载脚本，经过测试，可以一次性下载10万条数据。
 
 安装地址：https://greasyfork.org/zh-CN/scripts/448810-wos-download-bot
 
