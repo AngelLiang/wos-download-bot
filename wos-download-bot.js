@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
-// @version      1.3.0
+// @version      1.3.1
 // @description  wos核心论文集下载机器人
 // @author       AngelLiang
 // @match        https://www.webofscience.com/wos/woscc/summary/*/relevance/*
@@ -23,8 +23,11 @@
     var total = "";
     var perPage = 500
 
+    // 论文集的唯一码
     var uuid = ""
+    // wos的唯一码（？）
     var wosSid = ""
+    // 等待秒数
     var waitSecond = null
 
     function getTotal() {
@@ -55,7 +58,9 @@
     }
 
     function get_bm_telemetry() {
-        return bmak['sensor_data']
+        // return bmak['sensor_data']
+        // update: 20230709修改接口
+        return bmak.get_telemetry()
     }
 
     function genRequestData(start, stop) {
@@ -204,27 +209,29 @@
         requestFileByIndex(start, stop, total, requestFileByIndex)
     }
 
-    function getSessionID(doc) {
-        const sidRegex = /sid=([a-zA-Z0-9]+)/i;
+    function getSessionID() {
+        // const sidRegex = /SID=([a-zA-Z0-9]+)/i;
 
-        // session ID is embedded in the static page inside an inline <script>
-        // if you have the right HttpOnly cookie set. if we can't find it, we
-        // initialize our session as the web app does
-        for (let scriptTag of doc.querySelectorAll('script')) {
-            let sid = scriptTag.textContent.match(sidRegex);
-            if (sid) {
-                return sid[1];
-            }
-        }
-        return null
+        // // session ID is embedded in the static page inside an inline <script>
+        // // if you have the right HttpOnly cookie set. if we can't find it, we
+        // // initialize our session as the web app does
+        // for (let scriptTag of document.querySelectorAll('script')) {
+        //     let sid = scriptTag.textContent.match(sidRegex);
+        //     if (sid) {
+        //         return sid[1];
+        //     }
+        // }
+        // return null
+
+        return sessionData.BasicProperties.SID
     }
 
     function downloadCallback() {
         console.log("===下载文件===")
-        wosSid = getSessionID(document)
-        // console.log(wosSid)
+        wosSid = getSessionID()
+        console.log('wosSid:', wosSid)
         uuid = getParentQid()
-        // console.log(uuid)
+        console.log('uuid:', uuid)
         let total = getTotal()
         // console.log(total)
         let number = genRequestPageNumber(total)
@@ -232,7 +239,6 @@
     }
 
     function addButton() {
-        console.log("addButton")
         $('body').append('<button id="downloadButton">一键下载</button>')
         $('#downloadButton').css('width', '120px')
         $('#downloadButton').css('position', 'absolute')
@@ -249,6 +255,7 @@
     };
 
     $(document).ready(function () {
+        console.log("WDB-v1.3.1")
         if (window.location.href.startsWith('https://www.webofscience.com')) {
             addButton()
         }
