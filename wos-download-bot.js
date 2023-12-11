@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wos Download Bot
 // @namespace    http://tampermonkey.net/
-// @version      1.4.0
+// @version      1.4.1
 // @description  wos核心论文集下载机器人
 // @author       AngelLiang
 // @match        https://www.webofscience.com/wos/woscc/summary/*/relevance/*
@@ -113,7 +113,8 @@
             "isRefQuery": "false",
             "locale": "en_US",
             "filters": get_filters(),
-            "bm-telemetry": get_bm_telemetry()
+            // update: 20231211 不再需要这个字段
+            // "bm-telemetry": get_bm_telemetry()
         }
         let requestData = JSON.stringify(requestJson)
         return requestData
@@ -167,14 +168,22 @@
 
         console.log("正在下载" + start + "到" + stop + "份数据，总共" + total + "份")
         disableDownloadButton()
-        var data = genRequestData(start, stop)
+        try {
+            var data = genRequestData(start, stop)    
+        } catch (error) {
+            console.error(error)
+            enableDownloadButton()
+            alert('请求出错，请联系开发者')
+            return
+        }
 
         let reqAjax = $.ajax({
             url:DOWNLOAD_URL,
             type: 'POST',
             headers: {
                 "x-1p-wos-sid": wosSid,
-                "content-type": "application/json, text/plain, */*",
+                "accept": "application/json, text/plain, */*",
+                "content-type": "application/json",
                 "accept-language": "zh-CN,zh;q=0.9"
             },
             "crossDomain": true,
@@ -330,11 +339,16 @@
         // document.body.appendChild(downloadButton);
     };
 
-    $(document).ready(function () {
-        console.log("WDB-v1.4.0")
-        if (window.location.href.startsWith('https://www.webofscience.com')) {
-            initButton()
+    // 检查URL并初始化按钮
+    function checkAndInitButton() {
+        if (window.location.href.includes('https://www.webofscience.com/')) {
+            initButton();
         }
+    }
+
+    $(document).ready(function () {
+        console.log("WDB-v1.4.1")
+        checkAndInitButton();
     })
 
 })();
