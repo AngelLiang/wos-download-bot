@@ -256,8 +256,8 @@
         <h3>一键下载</h3>
         <label for="fileFormat">文件格式：</label>
         <select id="fileFormat">
-            <option value="ris">RIS</option>
             <option value="bibtex">BibTeX</option>
+            <option value="ris">RIS</option>
             <option value="txt">txt</option>
         </select><br>
         <label for="startDownloadFrom">起始下载份数：</label>
