@@ -4,8 +4,8 @@
 // @version      1.4.1
 // @description  wos核心论文集下载机器人
 // @author       AngelLiang
-// @include      https://*.webofscience.com/wos/woscc/summary/*/relevance/*
-// @include      https://*.clarivate.cn/wos/woscc/summary/*/relevance/*
+// @include      https://*.webofscience.com/wos/woscc/summary/*/*/*
+// @include      https://*.clarivate.cn/wos/woscc/summary/*/*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=webofscience.com
 // @require      https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
 // @require      https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js
