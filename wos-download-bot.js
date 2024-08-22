@@ -4,8 +4,8 @@
 // @version      1.4.1
 // @description  wos核心论文集下载机器人
 // @author       AngelLiang
-// @include      https://*.webofscience.com/wos/woscc/summary/*/relevance/*
-// @include      https://*.clarivate.cn/wos/woscc/summary/*/relevance/*
+// @include      https://*.webofscience.com/wos/woscc/summary/*/*/*
+// @include      https://*.clarivate.cn/wos/woscc/summary/*/*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=webofscience.com
 // @require      https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js
 // @require      https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js
@@ -256,8 +256,8 @@
         <h3>一键下载</h3>
         <label for="fileFormat">文件格式：</label>
         <select id="fileFormat">
-            <option value="ris">RIS</option>
             <option value="bibtex">BibTeX</option>
+            <option value="ris">RIS</option>
             <option value="txt">txt</option>
         </select><br>
         <label for="startDownloadFrom">起始下载份数：</label>
