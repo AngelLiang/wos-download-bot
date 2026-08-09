@@ -342,7 +342,7 @@
 
     // 检查URL并初始化按钮
     function checkAndInitButton() {
-        if (window.location.href.includes('https://www.webofscience.com/')) {
+        if (window.location.href.includes('webofscience.com') || window.location.href.includes('clarivate.cn')) {
             initButton();
         }
     }
